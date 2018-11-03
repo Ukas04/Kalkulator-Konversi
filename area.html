@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link href="css/fontawesome.css" rel="stylesheet">
+  <style>
+  .row {
+    padding-top: 25px;
+  }
+  .card {
+    margin-top: 25px;
+  }
+  </style>
+  <title>Kalkulator Konversi</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light text-center">
+    <a class="navbar-brand" href="index.html"><i class="fas fa-bars"></i></a>
+    <span class="navbar-text">
+    KONVERSI AREA
+  </span>   
+</nav>
+  <div class="container">   
+    <div class="row">
+      <div class="col-5">
+        <select id="convert1" class="form-control" onchange="konversi()">
+          <option value="mm2">Milimeter pangkat dua (mm2)</option>
+          <option value="cm2">Sentimeter pangkat dua (cm2)</option>
+          <option value="a">Are (a)</option>
+          <option value="m2" selected>Meter pangkat dua (m2)</option>
+          <option value="km2">Kilometer pangkat dua (km2)</option>
+          <option value="ft2">Kaki pangkat dua (ft2)</option>
+          <option value="ha">Hectare (ha)</option>
+          <option value="acre">Acre</option>
+          <option value="yd2">Yard pangkat dua (yd2)</option>
+        </select>
+      </div>
+      <div class="col-7">
+        <input type="text" id="angka1" value="0" class="form-control" readonly>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-5">
+        <select id="convert2" class="form-control" onchange="konversi()">
+          <option value="mm2">Milimeter pangkat dua (mm2)</option>
+          <option value="cm2">Sentimeter pangkat dua (cm2)</option>
+          <option value="a">Are (a)</option>
+          <option value="m2" selected>Meter pangkat dua (m2)</option>
+          <option value="km2">Kilometer pangkat dua (km2)</option>
+          <option value="ft2">Kaki pangkat dua (ft2)</option>
+          <option value="ha">Hectare (ha)</option>
+          <option value="acre">Acre</option>
+          <option value="yd2">Yard pangkat dua (yd2)</option>
+        </select>
+      </div>
+      <div class="col-7">
+        <input type="text" id="angka2" value="0" class="form-control" readonly>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-12">
+        <input type="button" value="Bersihkan" class="btn btn-warning btn-block" onclick="bersihkan()">
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-4">
+        <input type="button" value="7" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="8" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="9" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        <input type="button" value="4" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="5" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="6" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        <input type="button" value="1" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="2" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="3" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-8">
+        <input type="button" value="0" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="." class="btn btn-default btn-block" onclick="tambahTitik()">
+      </div>
+    </div>
+  </div>
+
+  <script src="js/jquery-slim.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+    angka1= "0";
+    angka2= "0";
+    convert1 = "";
+    convert2 = "";
+    function tambahAngka(angka){
+      if((eval(angka1) == 0) && (angka1.indexOf(".") == -1)){
+        angka1 = angka;
+      } else {
+        angka1 += angka;
+      }
+      document.getElementById("angka1").value = angka1;
+      konversi(); konversi2(); konversi3(); konversi4();
+      konversi5(); konversi6(); konversi7(); konversi8();
+      konversi9();  
+    }
+    
+    function konversi(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "mm2") && (convert2 == "mm2")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mm2") && (convert2 == "cm2")){
+        result = eval(angka1)/100;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mm2") && (convert2 == "a")){
+        result = eval(angka1)/100000000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mm2") && (convert2 == "m2")){
+        result = eval(angka1)/1000000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mm2") && (convert2 == "km2")){
+        result = eval(angka1)/1000000000000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mm2") && (convert2 == "ft2")){
+        result = eval(angka1)/92903.039997495;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mm2") && (convert2 == "ha")){
+        result = eval(angka1)/10000000000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mm2") && (convert2 == "acre")){
+        result = eval(angka1)/4046862669.7153;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "mm2") && (convert2 == "yd2")){
+        result = eval(angka1)/836127.36021049;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi2(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "cm2") && (convert2 == "mm2")){
+        result = eval(angka1)/0.01;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm2") && (convert2 == "cm2")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm2") && (convert2 == "a")){
+        result = eval(angka1)/1000000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm2") && (convert2 == "m2")){
+        result = eval(angka1)/10000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm2") && (convert2 == "km2")){
+        result = eval(angka1)/10000000000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm2") && (convert2 == "ft2")){
+        result = eval(angka1)/929.03039997495;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm2") && (convert2 == "ha")){
+        result = eval(angka1)/100000000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm2") && (convert2 == "acre")){
+        result = eval(angka1)/40468626.697153;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "cm2") && (convert2 == "yd2")){
+        result = eval(angka1)/8361.2736021049;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi3(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "a") && (convert2 == "mm2")){
+        result = eval(angka1)/0.00000001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "a") && (convert2 == "cm2")){
+        result = eval(angka1)/0.000001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "a") && (convert2 == "a")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "a") && (convert2 == "m2")){
+        result = eval(angka1)/0.01;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "a") && (convert2 == "km2")){
+        result = eval(angka1)/10000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "a") && (convert2 == "ft2")){
+        result = eval(angka1)/0.00092903039997495;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "a") && (convert2 == "ha")){
+        result = eval(angka1)/100;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "a") && (convert2 == "acre")){
+        result = eval(angka1)/40.468626697153;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "a") && (convert2 == "yd2")){
+        result = eval(angka1)/0.0083612736021049;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi4(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "m2") && (convert2 == "mm2")){
+        result = eval(angka1)/0.000001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m2") && (convert2 == "cm2")){
+        result = eval(angka1)/0.0001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m2") && (convert2 == "a")){
+        result = eval(angka1)/100;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m2") && (convert2 == "m2")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m2") && (convert2 == "km2")){
+        result = eval(angka1)/1000000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m2") && (convert2 == "ft2")){
+        result = eval(angka1)/0.092903039997495;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m2") && (convert2 == "ha")){
+        result = eval(angka1)/10000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m2") && (convert2 == "acre")){
+        result = eval(angka1)/4046.8626697153;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "m2") && (convert2 == "yd2")){
+        result = eval(angka1)/0.83612736021049;
+        document.getElementById("angka2").value = result;
+      }
+    }
+    
+    function konversi5(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "km2") && (convert2 == "mm2")){
+        result = eval(angka1)/0.000000000001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km2") && (convert2 == "cm2")){
+        result = eval(angka1)/0.0000000001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km2") && (convert2 == "a")){
+        result = eval(angka1)/0.0001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km2") && (convert2 == "m2")){
+        result = eval(angka1)/0.000001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km2") && (convert2 == "km2")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km2") && (convert2 == "ft2")){
+        result = eval(angka1)/9.2903039997495;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km2") && (convert2 == "ha")){
+        result = eval(angka1)/0.01;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km2") && (convert2 == "acre")){
+        result = eval(angka1)/0.0040468626697153;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "km2") && (convert2 == "yd2")){
+        result = eval(angka1)/8.3612736021049;
+        document.getElementById("angka2").value = result;
+      }
+    }
+   
+    function konversi6(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "ft2") && (convert2 == "mm2")){
+        result = eval(angka1)/0.000010763910417;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft2") && (convert2 == "cm2")){
+        result = eval(angka1)/0.0010763910417;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft2") && (convert2 == "a")){
+        result = eval(angka1)/1076.3910417;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft2") && (convert2 == "m2")){
+        result = eval(angka1)/10.763910417;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft2") && (convert2 == "km2")){
+        result = eval(angka1)/10763910.417;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft2") && (convert2 == "ft2")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft2") && (convert2 == "ha")){
+        result = eval(angka1)/107639.10417;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft2") && (convert2 == "acre")){
+        result = eval(angka1)/43560.067246717;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "ft2") && (convert2 == "yd2")){
+        result = eval(angka1)/9.0000000025084;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi7(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "ha") && (convert2 == "mm2")){
+        result = eval(angka1)/0.0000000001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ha") && (convert2 == "cm2")){
+        result = eval(angka1)/0.00000001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ha") && (convert2 == "a")){
+        result = eval(angka1)/0.01;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ha") && (convert2 == "m2")){
+        result = eval(angka1)/0.0001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ha") && (convert2 == "km2")){
+        result = eval(angka1)/100;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ha") && (convert2 == "ft2")){
+        result = eval(angka1)/0.0000092903039997495;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ha") && (convert2 == "ha")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ha") && (convert2 == "acre")){
+        result = eval(angka1)/0.40468626697153;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "ha") && (convert2 == "yd2")){
+        result = eval(angka1)/0.000083612736021049;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi8(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "acre") && (convert2 == "mm2")){
+        result = eval(angka1)/2.47105;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "acre") && (convert2 == "cm2")){
+        result = eval(angka1)/2.47105;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "acre") && (convert2 == "a")){
+        result = eval(angka1)/0.0247105;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "acre") && (convert2 == "m2")){
+        result = eval(angka1)/0.000247105;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "acre") && (convert2 == "km2")){
+        result = eval(angka1)/247.105;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "acre") && (convert2 == "ft2")){
+        result = eval(angka1)/0.000022956805698581;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "acre") && (convert2 == "ha")){
+        result = eval(angka1)/2.47105;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "acre") && (convert2 == "acre")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "acre") && (convert2 == "yd2")){
+        result = eval(angka1)/0.00020661125134481;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi9(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "yd2") && (convert2 == "mm2")){
+        result = eval(angka1)/0.000001195990046;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd2") && (convert2 == "cm2")){
+        result = eval(angka1)/0.0001195990046;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd2") && (convert2 == "a")){
+        result = eval(angka1)/119.5990046;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd2") && (convert2 == "m2")){
+        result = eval(angka1)/1.195990046;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd2") && (convert2 == "km2")){
+        result = eval(angka1)/1195990.046;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd2") && (convert2 == "ft2")){
+        result = eval(angka1)/0.11111111108014;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd2") && (convert2 == "ha")){
+        result = eval(angka1)/11959.90046;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd2") && (convert2 == "acre")){
+        result = eval(angka1)/4840.0074705085;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "yd2") && (convert2 == "yd2")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function tambahTitik(){
+      if(angka1.length == 0){
+        angka1 = "0.";
+      } else {
+        if(angka1.indexOf(".") == -1){
+          angka1+= ".";
+        }
+      }
+      document.getElementById("angka1").value = angka1;
+    }
+
+    function bersihkan(){
+      angka1 = "0";
+      document.getElementById("angka1").value = angka1;
+      document.getElementById("angka2").value = angka1;
+    }
+  </script>
+</body>
+</html>

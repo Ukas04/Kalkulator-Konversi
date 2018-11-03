@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link href="css/fontawesome.css" rel="stylesheet">
+  <style>
+  .row {
+    padding-top: 25px;
+  }
+  .card {
+    margin-top: 25px;
+  }
+  </style>
+  <title>Kalkulator Konversi</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light text-center">
+    <a class="navbar-brand" href="index.html"><i class="fas fa-bars"></i></a>
+    <span class="navbar-text">
+    KONVERSI VOLUME
+  </span>   
+</nav>
+  <div class="container">    
+    <div class="row">
+      <div class="col-5">
+        <select id="convert1" class="form-control" onchange="konversi()">
+          <option value="ft3">Kaki pangkat tiga (ft3)</option>
+          <option value="m3">Meter pangkat tiga (m3)</option>
+          <option value="in3">Inci pangkat tiga (in3)</option>
+          <option value="cm3" selected>Sentimeter pangkat tiga (cm3)</option>
+          <option value="yd3">Yard pangkat tiga (yd3)</option>
+          <option value="galon">Galon</option>
+          <option value="ml">Mililiter (ml)</option>
+          <option value="L">Liter (L)</option>
+          <option value="oz">Ons Cairan (oz)</option>
+        </select>
+      </div>
+      <div class="col-7">
+        <input type="text" id="angka1" value="0" class="form-control" readonly>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-5">
+        <select id="convert2" class="form-control" onchange="konversi()">
+          <option value="ft3">Kaki pangkat tiga (ft3)</option>
+          <option value="m3">Meter pangkat tiga (m3)</option>
+          <option value="in3">Inci pangkat tiga (in3)</option>
+          <option value="cm3" selected>Sentimeter pangkat tiga (cm3)</option>
+          <option value="yd3">Yard pangkat tiga (yd3)</option>
+          <option value="galon">Galon</option>
+          <option value="ml">Mililiter (ml)</option>
+          <option value="L">Liter (L)</option>
+          <option value="oz">Ons Cairan (oz)</option>
+        </select>
+      </div>
+      <div class="col-7">
+        <input type="text" id="angka2" value="0" class="form-control" readonly>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-12">
+        <input type="button" value="Bersihkan" class="btn btn-warning btn-block" onclick="bersihkan()">
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-4">
+        <input type="button" value="7" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="8" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="9" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        <input type="button" value="4" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="5" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="6" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        <input type="button" value="1" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="2" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="3" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-8">
+        <input type="button" value="0" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="." class="btn btn-default btn-block" onclick="tambahTitik()">
+      </div>
+    </div>
+  </div>
+
+  <script src="js/jquery-slim.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+    angka1= "0";
+    angka2= "0";
+    convert1 = "";
+    convert2 = "";
+    function tambahAngka(angka){
+      if((eval(angka1) == 0) && (angka1.indexOf(".") == -1)){
+        angka1 = angka;
+      } else {
+        angka1 += angka;
+      }
+      document.getElementById("angka1").value = angka1;
+      konversi(); konversi2(); konversi3(); konversi4();
+      konversi5(); konversi6(); konversi7(); konversi8();
+      konversi9();  
+    }
+    
+    function konversi(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "ft3") && (convert2 == "ft3")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft3") && (convert2 == "m3")){
+        result = eval(angka1)/35.3146667;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft3") && (convert2 == "in3")){
+        result = eval(angka1)/0.000578703704;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft3") && (convert2 == "cm3")){
+        result = eval(angka1)/0.0000353146667;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft3") && (convert2 == "yd3")){
+        result = eval(angka1)/27;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft3") && (convert2 == "galon")){
+        result = eval(angka1)/0.16054365323373;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft3") && (convert2 == "ml")){
+        result = eval(angka1)/0.000035314666721;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft3") && (convert2 == "L")){
+        result = eval(angka1)/0.035314666721;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "ft3") && (convert2 == "oz")){
+        result = eval(angka1)/0.0010033978327104;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi2(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "m3") && (convert2 == "ft3")){
+        result = eval(angka1)/0.028316846592392;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m3") && (convert2 == "m3")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m3") && (convert2 == "in3")){
+        result = eval(angka1)/0.000016387064;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m3") && (convert2 == "cm3")){
+        result = eval(angka1)/0.000001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m3") && (convert2 == "yd3")){
+        result = eval(angka1)/0.76455485816778;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m3") && (convert2 == "galon")){
+        result = eval(angka1)/0.0045460900000018;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m3") && (convert2 == "ml")){
+        result = eval(angka1)/0.000001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m3") && (convert2 == "L")){
+        result = eval(angka1)/0.001;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "m3") && (convert2 == "oz")){
+        result = eval(angka1)/0.0000284130625;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi3(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "in3") && (convert2 == "ft3")){
+        result = eval(angka1)/1728.0000000239;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "in3") && (convert2 == "m3")){
+        result = eval(angka1)/610237.44094732;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "in3") && (convert2 == "in3")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "in3") && (convert2 == "cm3")){
+        result = eval(angka1)/61.023744094732;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "in3") && (convert2 == "yd3")){
+        result = eval(angka1)/46656.000011214;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "in3") && (convert2 == "galon")){
+        result = eval(angka1)/277.41943279173;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "in3") && (convert2 == "ml")){
+        result = eval(angka1)/61.023744094732;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "in3") && (convert2 == "L")){
+        result = eval(angka1)/61.023744094732;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "in3") && (convert2 == "oz")){
+        result = eval(angka1)/1.7338714549476;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi4(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "cm3") && (convert2 == "ft3")){
+        result = eval(angka1)/28316.846592392;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm3") && (convert2 == "m3")){
+        result = eval(angka1)/1000000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm3") && (convert2 == "in3")){
+        result = eval(angka1)/16.387064;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm3") && (convert2 == "cm3")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm3") && (convert2 == "yd3")){
+        result = eval(angka1)/764554.85816778;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm3") && (convert2 == "galon")){
+        result = eval(angka1)/4546.0900000018;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm3") && (convert2 == "ml")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "cm3") && (convert2 == "L")){
+        result = eval(angka1)/1000;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "cm3") && (convert2 == "oz")){
+        result = eval(angka1)/28.4130625;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi5(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "yd3") && (convert2 == "ft3")){
+        result = eval(angka1)/0.037037037028647;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd3") && (convert2 == "m3")){
+        result = eval(angka1)/1.307950619;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd3") && (convert2 == "in3")){
+        result = eval(angka1)/0.000021433470502393;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd3") && (convert2 == "cm3")){
+        result = eval(angka1)/0.000001307950619;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd3") && (convert2 == "yd3")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd3") && (convert2 == "galon")){
+        result = eval(angka1)/0.0059460612295321;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd3") && (convert2 == "ml")){
+        result = eval(angka1)/0.000001307950619;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "yd3") && (convert2 == "L")){
+        result = eval(angka1)/0.001307950619;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "yd3") && (convert2 == "oz")){
+        result = eval(angka1)/0.000037162882684561;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi6(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "galon") && (convert2 == "ft3")){
+        result = eval(angka1)/6.2288354591265;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "galon") && (convert2 == "m3")){
+        result = eval(angka1)/219.969248299;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "galon") && (convert2 == "in3")){
+        result = eval(angka1)/0.0036046501499076;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "galon") && (convert2 == "cm3")){
+        result = eval(angka1)/0.000219969248299;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "galon") && (convert2 == "yd3")){
+        result = eval(angka1)/168.17855743451;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "galon") && (convert2 == "galon")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "galon") && (convert2 == "ml")){
+        result = eval(angka1)/0.000219969248299;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "galon") && (convert2 == "L")){
+        result = eval(angka1)/0.219969248299;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "galon") && (convert2 == "oz")){
+        result = eval(angka1)/0.0062499999999975;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi7(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "ml") && (convert2 == "ft3")){
+        result = eval(angka1)/28316.846592392;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ml") && (convert2 == "m3")){
+        result = eval(angka1)/1000000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ml") && (convert2 == "in3")){
+        result = eval(angka1)/16.387064;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ml") && (convert2 == "cm3")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ml") && (convert2 == "yd3")){
+        result = eval(angka1)/76455.485816778;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ml") && (convert2 == "galon")){
+        result = eval(angka1)/4546.0900000018;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ml") && (convert2 == "ml")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ml") && (convert2 == "L")){
+        result = eval(angka1)/1000;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "ml") && (convert2 == "oz")){
+        result = eval(angka1)/28.4130625;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi8(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "L") && (convert2 == "ft3")){
+        result = eval(angka1)/28.316846592392;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "L") && (convert2 == "m3")){
+        result = eval(angka1)/1000;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "L") && (convert2 == "in3")){
+        result = eval(angka1)/0.016387064;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "L") && (convert2 == "cm3")){
+        result = eval(angka1)/0.001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "L") && (convert2 == "yd3")){
+        result = eval(angka1)/764.55485816778;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "L") && (convert2 == "galon")){
+        result = eval(angka1)/4.5460900000018;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "L") && (convert2 == "ml")){
+        result = eval(angka1)/0.001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "L") && (convert2 == "L")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "L") && (convert2 == "oz")){
+        result = eval(angka1)/0.0284130625;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi9(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "oz") && (convert2 == "ft3")){
+        result = eval(angka1)/996.61367346064;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "oz") && (convert2 == "m3")){
+        result = eval(angka1)/35195.079727854;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "oz") && (convert2 == "in3")){
+        result = eval(angka1)/0.57674402398545;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "oz") && (convert2 == "cm3")){
+        result = eval(angka1)/35.195079727854;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "oz") && (convert2 == "yd3")){
+        result = eval(angka1)/26908.569189533;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "oz") && (convert2 == "galon")){
+        result = eval(angka1)/160.00000000006;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "oz") && (convert2 == "ml")){
+        result = eval(angka1)/0.035195079727854;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "oz") && (convert2 == "L")){
+        result = eval(angka1)/35.195079727854;
+        document.getElementById("angka2").value = result;
+      }else if((convert1 == "oz") && (convert2 == "oz")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function tambahTitik(){
+      if(angka1.length == 0){
+        angka1 = "0.";
+      } else {
+        if(angka1.indexOf(".") == -1){
+          angka1+= ".";
+        }
+      }
+      document.getElementById("angka1").value = angka1;
+    }
+
+    function bersihkan(){
+      angka1 = "0";
+      document.getElementById("angka1").value = angka1;
+      document.getElementById("angka2").value = angka1;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link href="css/fontawesome.css" rel="stylesheet">
+  <style>
+  .row {
+    padding-top: 25px;
+  }
+  .card {
+    margin-top: 25px;
+  }
+  </style>
+  <title>Kalkulator Konversi</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light text-center">
+    <a class="navbar-brand" href="index.html"><i class="fas fa-bars"></i></a>
+    <span class="navbar-text">
+    KONVERSI KECEPATAN
+  </span>   
+</nav>
+  <div class="container">    
+    <div class="row">
+      <div class="col-5">
+        <select id="convert1" class="form-control" onchange="konversi()">
+          <option value="m/s">Meter per detik (m/s)</option>
+          <option value="m/min">Meter per menit (m/min)</option>
+          <option value="km/min">Kilometer per menit (km/min)</option>
+          <option value="km/h" selected>Kilometer per jam (km/h)</option>
+          <option value="ft/s">Kaki per detik (ft/s)</option>
+          <option value="kn">Knot (kn)</option>
+          <option value="mach">Mach</option>
+          <option value="mph">Mil per jam (mph)</option>          
+        </select>
+      </div>
+      <div class="col-7">
+        <input type="text" id="angka1" value="0" class="form-control" readonly>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-5">
+        <select id="convert2" class="form-control" onchange="konversi()">
+          <option value="m/s">Meter per detik (m/s)</option>
+          <option value="m/min">Meter per menit (m/min)</option>
+          <option value="km/min">Kilometer per menit (km/min)</option>
+          <option value="km/h" selected>Kilometer per jam (km/h)</option>
+          <option value="ft/s">Kaki per detik (ft/s)</option>
+          <option value="kn">Knot (kn)</option>
+          <option value="mach">Mach</option>
+          <option value="mph">Mil per jam (mph)</option>
+        </select>
+      </div>
+      <div class="col-7">
+        <input type="text" id="angka2" value="0" class="form-control" readonly>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-12">
+        <input type="button" value="Bersihkan" class="btn btn-warning btn-block" onclick="bersihkan()">
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-4">
+        <input type="button" value="7" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="8" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="9" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        <input type="button" value="4" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="5" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="6" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        <input type="button" value="1" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="2" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="3" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-8">
+        <input type="button" value="0" class="btn btn-default btn-block" onclick="tambahAngka(this.value)">
+      </div>
+      <div class="col-4">
+        <input type="button" value="." class="btn btn-default btn-block" onclick="tambahTitik()">
+      </div>
+    </div>
+  </div>
+
+  <script src="js/jquery-slim.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+    angka1= "0";
+    angka2= "0";
+    convert1 = "";
+    convert2 = "";
+    function tambahAngka(angka){
+      if((eval(angka1) == 0) && (angka1.indexOf(".") == -1)){
+        angka1 = angka;
+      } else {
+        angka1 += angka;
+      }
+      document.getElementById("angka1").value = angka1;
+      konversi(); konversi2(); konversi3(); konversi4();
+      konversi5(); konversi6(); konversi7(); konversi8();  
+    }
+    
+    function konversi(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "m/s") && (convert2 == "m/s")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/s") && (convert2 == "m/min")){
+        result = eval(angka1)/0.016666666666667;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/s") && (convert2 == "km/min")){
+        result = eval(angka1)/16.6667;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/s") && (convert2 == "km/h")){
+        result = eval(angka1)/0.27777777777778;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/s") && (convert2 == "ft/s")){
+        result = eval(angka1)/0.30480000000122;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/s") && (convert2 == "kn")){
+        result = eval(angka1)/0.514444444;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/s") && (convert2 == "mach")){
+        result = eval(angka1)/340.3;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/s") && (convert2 == "mph")){
+        result = eval(angka1)/0.44704;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi2(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "m/min") && (convert2 == "m/s")){
+        result = eval(angka1)/60.001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/min") && (convert2 == "m/min")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/min") && (convert2 == "km/min")){
+        result = eval(angka1)/1000.002;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/min") && (convert2 == "km/h")){
+        result = eval(angka1)/16.6667;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/min") && (convert2 == "ft/s")){
+        result = eval(angka1)/18.2834;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/min") && (convert2 == "kn")){
+        result = eval(angka1)/30.8667;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/min") && (convert2 == "mach")){
+        result = eval(angka1)/20417.3742;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "m/min") && (convert2 == "mph")){
+        result = eval(angka1)/26.8167;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi3(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "km/min") && (convert2 == "m/s")){
+        result = eval(angka1)/0.06;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/min") && (convert2 == "m/min")){
+        result = eval(angka1)/0.001;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/min") && (convert2 == "km/min")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/min") && (convert2 == "km/h")){
+        result = eval(angka1)/0.0167;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/min") && (convert2 == "ft/s")){
+        result = eval(angka1)/0.0183;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/min") && (convert2 == "kn")){
+        result = eval(angka1)/0.0309;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/min") && (convert2 == "mach")){
+        result = eval(angka1)/20.4173;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/min") && (convert2 == "mph")){
+        result = eval(angka1)/0.0268;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi4(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "km/h") && (convert2 == "m/s")){
+        result = eval(angka1)/3.6;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/h") && (convert2 == "m/min")){
+        result = eval(angka1)/0.06;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/h") && (convert2 == "km/min")){
+        result = eval(angka1)/60;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/h") && (convert2 == "km/h")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/h") && (convert2 == "ft/s")){
+        result = eval(angka1)/1.097;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/h") && (convert2 == "kn")){
+        result = eval(angka1)/1.852;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/h") && (convert2 == "mach")){
+        result = eval(angka1)/1225.04;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "km/h") && (convert2 == "mph")){
+        result = eval(angka1)/1.609;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi5(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "ft/s") && (convert2 == "m/s")){
+        result = eval(angka1)/3.2817;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft/s") && (convert2 == "m/min")){
+        result = eval(angka1)/0.0547;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft/s") && (convert2 == "km/min")){
+        result = eval(angka1)/54.6946;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft/s") && (convert2 == "km/h")){
+        result = eval(angka1)/0.912;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft/s") && (convert2 == "ft/s")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft/s") && (convert2 == "kn")){
+        result = eval(angka1)/1.6882;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft/s") && (convert2 == "mach")){
+        result = eval(angka1)/1116.7183;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "ft/s") && (convert2 == "mph")){
+        result = eval(angka1)/1.4667;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi6(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "kn") && (convert2 == "m/s")){
+        result = eval(angka1)/1.9438;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "kn") && (convert2 == "m/min")){
+        result = eval(angka1)/0.0324;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "kn") && (convert2 == "km/min")){
+        result = eval(angka1)/32.3974;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "kn") && (convert2 == "km/h")){
+        result = eval(angka1)/0.54;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "kn") && (convert2 == "ft/s")){
+        result = eval(angka1)/0.592;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "kn") && (convert2 == "kn")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "kn") && (convert2 == "mach")){
+        result = eval(angka1)/661.4687;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "kn") && (convert2 == "mph")){
+        result = eval(angka1)/0.869;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi7(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "mach") && (convert2 == "m/s")){
+        result = eval(angka1)/0.00294;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mach") && (convert2 == "m/min")){
+        result = eval(angka1)/0.000049;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mach") && (convert2 == "km/min")){
+        result = eval(angka1)/0.049;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mach") && (convert2 == "km/h")){
+        result = eval(angka1)/0.000816;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mach") && (convert2 == "ft/s")){
+        result = eval(angka1)/0.000895;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mach") && (convert2 == "kn")){
+        result = eval(angka1)/0.00151;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mach") && (convert2 == "mach")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mach") && (convert2 == "mph")){
+        result = eval(angka1)/0.00131;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function konversi8(){
+      angka1 = document.getElementById("angka1").value;
+      convert1 = document.getElementById("convert1").value;
+      convert2 = document.getElementById("convert2").value;
+      if((convert1 == "mph") && (convert2 == "m/s")){
+        result = eval(angka1)/2.2374;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mph") && (convert2 == "m/min")){
+        result = eval(angka1)/0.0373;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mph") && (convert2 == "km/min")){
+        result = eval(angka1)/37.2902;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mph") && (convert2 == "km/h")){
+        result = eval(angka1)/0.622;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mph") && (convert2 == "ft/s")){
+        result = eval(angka1)/0.682;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mph") && (convert2 == "kn")){
+        result = eval(angka1)/1.151;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mph") && (convert2 == "mach")){
+        result = eval(angka1)/761.3673;
+        document.getElementById("angka2").value = result;
+      } else if((convert1 == "mph") && (convert2 == "mph")){
+        result = eval(angka1)*1;
+        document.getElementById("angka2").value = result;
+      }
+    }
+
+    function tambahTitik(){
+      if(angka1.length == 0){
+        angka1 = "0.";
+      } else {
+        if(angka1.indexOf(".") == -1){
+          angka1+= ".";
+        }
+      }
+      document.getElementById("angka1").value = angka1;
+    }
+
+    function bersihkan(){
+      angka1 = "0";
+      document.getElementById("angka1").value = angka1;
+      document.getElementById("angka2").value = angka1;
+    }
+  </script>
+</body>
+</html>
